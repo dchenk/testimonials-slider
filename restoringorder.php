@@ -13,7 +13,7 @@ License: Private
 // Note, originally this function was named "child_et_pb_register_posttypes".
 function custom_divi_register_topic_type() {
 
-	$postTypeArgs = array(
+	$postTypeArgs = [
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'labels'             => [
@@ -41,7 +41,7 @@ function custom_divi_register_topic_type() {
 			'with_front'     => false
 		]),
 		'supports'           => ['title', 'editor', 'thumbnail', 'excerpt', 'comments', 'revisions', 'custom-fields']
-	);
+	];
 
 	register_post_type('project', apply_filters('et_project_posttype_args', $postTypeArgs));
 
@@ -65,23 +65,21 @@ function custom_divi_register_topic_type() {
 		'query_var'           => true
 	]);
 
-	$labels = [
-		'name'              => 'Tags',
-		'singular_name'     => 'Tag',
-		'search_items'      => 'Search Tags',
-		'all_items'         => 'All Tags',
-		'parent_item'       => 'Parent Tag',
-		'parent_item_colon' => 'Parent Tag:',
-		'edit_item'         => 'Edit Tag',
-		'update_item'       => 'Update Tag',
-		'add_new_item'      => 'Add New Tag',
-		'new_item_name'     => 'New Tag Name',
-		'menu_name'         => 'Tags'
-	];
-
 	register_taxonomy('project_tag', ['project'], [
 		'hierarchical'      => false,
-		'labels'            => $labels,
+		'labels'            => [
+			'name'              => 'Tags',
+			'singular_name'     => 'Tag',
+			'search_items'      => 'Search Tags',
+			'all_items'         => 'All Tags',
+			'parent_item'       => 'Parent Tag',
+			'parent_item_colon' => 'Parent Tag:',
+			'edit_item'         => 'Edit Tag',
+			'update_item'       => 'Update Tag',
+			'add_new_item'      => 'Add New Tag',
+			'new_item_name'     => 'New Tag Name',
+			'menu_name'         => 'Tags'
+		],
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true
