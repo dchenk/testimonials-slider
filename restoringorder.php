@@ -102,12 +102,25 @@ add_action('init', 'custom_divi_register_topic_type', 20);
 // Create a shortcode for displaying the previous/next links on testimonial posts.
 function testimonial_nav_links() {
 	return '<div class="testimonial-nav"><span class="nav-next">' .
-		get_next_post_link('%link', 'Next Testimonial <span style="font-family: ETmodules !important;">&#x3d;</span>', true) .
+		get_next_post_link('%link', 'Next Testimonial <span style="font-family: ETmodules;">&#x3d;</span>', true) .
 		'</span><span class="nav-previous">' .
-		get_previous_post_link('%link', '<span style="font-family: ETmodules !important;">&#x3c;</span> Previous Testimonial', true) .
+		get_previous_post_link('%link', '<span style="font-family: ETmodules;">&#x3c;</span> Previous Testimonial', true) .
 		'</span></div>';
 }
 add_shortcode('testimonial_nav_links', 'testimonial_nav_links');
+
+function topic_nav_links() {
+	return '<div class="topic-nav"><span class="nav-next">' .
+		get_next_post_link('%link', 'Next Topic <span style="font-family: ETmodules;">&#x3d;</span>', true, [], 'project_category') .
+		'</span><span class="nav-previous">' .
+		get_previous_post_link('%link', '<span style="font-family: ETmodules;">&#x3c;</span> Previous Topic', true, [], 'project_category') .
+		'</span></div>';
+}
+add_shortcode('topic_nav_links', 'topic_nav_links');
+
+// Disable woocommerce single product sidebar.
+// TODO: Is this necessary?
+remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar', 10);
 
 // Woocommerce breadcrumbs home URL.
 function woo_custom_breadcrumb_home_url() {
