@@ -9,6 +9,8 @@ Author URI: https://widerwebs.com
 License: Private
 */
 
+define('RESTORING_PLUGIN_VER', '1.0');
+
 // Re-Label Projects to Topics.
 // Note, originally this function was named "child_et_pb_register_posttypes".
 function custom_divi_register_topic_type() {
@@ -136,35 +138,44 @@ function woocommerce_change_breadcrumb_home_text($defaults) {
 }
 add_filter('woocommerce_breadcrumb_defaults', 'woocommerce_change_breadcrumb_home_text');
 
+// customTestimonialsSlider returns the HTML code for a testimonials slider and enqueues the needed JS and CSS.
 function customTestimonialsSlider($atts) {
+	$pluginURL = plugins_url('', __FILE__) . '/';
+	wp_enqueue_style('testimonials', $pluginURL . 'testimonials-slider.css', [], RESTORING_PLUGIN_VER);
+	wp_enqueue_script('testimonials', $pluginURL . 'testimonials-slider.js', ['jquery'], RESTORING_PLUGIN_VER);
+
 	$atts = shortcode_atts([
 		'category' => ''
 	], $atts);
+
 	$posts = wp_get_recent_posts([
-		'numberposts' => 10,
-		'offset' => 0,
-		'category' => $atts['category'],
-		'orderby' => 'post_date',
-		'order' => 'DESC',
-		'include' => '',
-		'exclude' => '',
-		'meta_key' => '',
-		'meta_value' =>'',
-		'post_type' => 'testimonial',
-		'post_status' => 'publish'
+		'numberposts'   => 12,
+		'offset'        => 0,
+		'category_name' => $atts['category'],
+		'orderby'       => 'post_date',
+		'order'         => 'DESC',
+		'include'       => '',
+		'exclude'       => '',
+		'meta_key'      => '',
+		'meta_value'    => '',
+		'post_type'     => 'testimonial',
+		'post_status'   => 'publish'
 	]);
+
 	$siteURL = site_url();
-	$out = '<div class="testimonials-slider">';
+	$out = '<div class="testimonials-slider"><div class="testimonials-slider-control">';
+	$out .= '<span class="testimonials-slider-left">&#xe03b;</span><span class="testimonials-slider-right">&#xe03c;</span>';
+	$out .= '</div><div class="testimonials-slider-list">';
 	foreach ($posts as $post) {
-		$out .= '<div class="testimonial"><a href="' . $siteURL . '/testimonial/' . $post['post_name'] . '">';
+		$out .= '<a class="testimonial" href="' . $siteURL . '/testimonial/' . $post['post_name'] . '">';
 		$url = get_the_post_thumbnail_url($post['ID']);
 		if ($url) {
 			$out .= '<img src="' . $url . '" alt="' . $post['post_title'] . '">';
 		} else {
-			$out .= '<div class="testimonial-only-title">' . $post['post_title'] . '</div>';
+			$out .= '<div class="testimonial-only-title"><div>' . $post['post_title'] . '</div></div>';
 		}
-		$out .= '</a></div>';
+		$out .= '</a>';
 	}
-	return $out . '</div>';
+	return $out . '</div></div>';
 }
 add_shortcode('custom_testimonials_slider', 'customTestimonialsSlider');
