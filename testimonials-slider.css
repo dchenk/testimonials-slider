@@ -26,6 +26,9 @@
 	margin: 0 20px 0 0;
 	padding: 0;
 }
+.testimonials-slider a.testimonial:last-child {
+	margin-right: 0;
+}
 .testimonial img {
 	object-fit: cover;
 	width: 100%;
