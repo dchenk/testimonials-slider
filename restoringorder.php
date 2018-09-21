@@ -135,3 +135,36 @@ function woocommerce_change_breadcrumb_home_text($defaults) {
 	return $defaults;
 }
 add_filter('woocommerce_breadcrumb_defaults', 'woocommerce_change_breadcrumb_home_text');
+
+function customTestimonialsSlider($atts) {
+	$atts = shortcode_atts([
+		'category' => ''
+	], $atts);
+	$posts = wp_get_recent_posts([
+		'numberposts' => 10,
+		'offset' => 0,
+		'category' => $atts['category'],
+		'orderby' => 'post_date',
+		'order' => 'DESC',
+		'include' => '',
+		'exclude' => '',
+		'meta_key' => '',
+		'meta_value' =>'',
+		'post_type' => 'testimonial',
+		'post_status' => 'publish'
+	]);
+	$siteURL = site_url();
+	$out = '<div class="testimonials-slider">';
+	foreach ($posts as $post) {
+		$out .= '<div class="testimonial"><a href="' . $siteURL . '/testimonial/' . $post['post_name'] . '">';
+		$url = get_the_post_thumbnail_url($post['ID']);
+		if ($url) {
+			$out .= '<img src="' . $url . '" alt="' . $post['post_title'] . '">';
+		} else {
+			$out .= '<div class="testimonial-only-title">' . $post['post_title'] . '</div>';
+		}
+		$out .= '</a></div>';
+	}
+	return $out . '</div>';
+}
+add_shortcode('custom_testimonials_slider', 'customTestimonialsSlider');
