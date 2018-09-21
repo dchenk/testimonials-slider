@@ -17,6 +17,7 @@
 	display: flex;
 	height: 300px;
 	overflow: hidden;
+	transition: margin-left .25s cubic-bezier(0, 0, .2, 1) 0ms;
 }
 .testimonials-slider a.testimonial {
 	display: block;
