@@ -149,9 +149,8 @@ function customTestimonialsSlider($atts) {
 	], $atts);
 
 	$posts = wp_get_recent_posts([
-		'numberposts'   => 12,
+		'numberposts'   => 15,
 		'offset'        => 0,
-//		'category_name' => $atts['category'],
 		'tax_query' => [
 			[
 				'taxonomy' => 'testimonial_category',
