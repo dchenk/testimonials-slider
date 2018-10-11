@@ -151,7 +151,14 @@ function customTestimonialsSlider($atts) {
 	$posts = wp_get_recent_posts([
 		'numberposts'   => 12,
 		'offset'        => 0,
-		'category_name' => $atts['category'],
+//		'category_name' => $atts['category'],
+		'tax_query' => [
+			[
+				'taxonomy' => 'testimonial_category',
+				'field'    => 'slug',
+				'terms'    => $atts['category']
+			]
+		],
 		'orderby'       => 'post_date',
 		'order'         => 'DESC',
 		'include'       => '',
