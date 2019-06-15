@@ -11,33 +11,6 @@ License: Private
 
 define('TESTIMONIALS_PLUGIN_VER', '1.0');
 
-function topic_nav_links() {
-	return '<div class="topic-nav"><span class="nav-next">' .
-		get_next_post_link('%link', 'Next Topic <span style="font-family: ETmodules;">&#x3d;</span>', true, [], 'project_category') .
-		'</span><span class="nav-previous">' .
-		get_previous_post_link('%link', '<span style="font-family: ETmodules;">&#x3c;</span> Previous Topic', true, [], 'project_category') .
-		'</span></div>';
-}
-add_shortcode('topic_nav_links', 'topic_nav_links');
-
-// Disable woocommerce single product sidebar.
-// TODO: Is this necessary?
-remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar', 10);
-
-// Woocommerce breadcrumbs home URL.
-function woo_custom_breadcrumb_home_url() {
-	return '/shop/';
-}
-add_filter('woocommerce_breadcrumb_home_url', 'woo_custom_breadcrumb_home_url');
-
-function woocommerce_change_breadcrumb_home_text($defaults) {
-	if (is_product_category()) {
-		$defaults['home'] = 'Shop';
-	}
-	return $defaults;
-}
-add_filter('woocommerce_breadcrumb_defaults', 'woocommerce_change_breadcrumb_home_text');
-
 // customTestimonialsSlider returns the HTML code for a testimonials slider and enqueues the needed JS and CSS.
 function customTestimonialsSlider($atts) {
 	$pluginURL = plugins_url('', __FILE__) . '/';
