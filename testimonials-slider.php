@@ -3,13 +3,13 @@
 Plugin Name: Testimonials Slider
 Plugin URI: https://widerwebs.com
 Description: A simple testimonials slider
-Version: 1.0
+Version: 2.0
 Author: Wider Webs
 Author URI: https://widerwebs.com
 License: Private
 */
 
-define('TESTIMONIALS_PLUGIN_VER', '1.0');
+define('TESTIMONIALS_PLUGIN_VER', '2.0');
 
 // customTestimonialsSlider returns the HTML code for a testimonials slider and enqueues the needed JS and CSS.
 function customTestimonialsSlider($atts) {
