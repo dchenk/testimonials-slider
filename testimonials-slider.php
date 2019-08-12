@@ -62,7 +62,7 @@ add_shortcode('custom_testimonials_slider', 'customTestimonialsSlider');
 // Create a shortcode for displaying the previous/next links on testimonial posts.
 function testimonial_nav_links() {
 	return '<div class="testimonial-nav"><span class="nav-next">' .
-	get_next_post_link('%link', 'Next Testimonial <span style="font-family: ETmodules;">&#x3d;</span>', true, [], 'testimonial_category') .
+		get_next_post_link('%link', 'Next Testimonial <span style="font-family: ETmodules;">&#x3d;</span>', true, [], 'testimonial_category') .
 		'</span><span class="nav-previous">' .
 		get_previous_post_link('%link', '<span style="font-family: ETmodules;">&#x3c;</span> Previous Testimonial', true, [], 'testimonial_category') .
 		'</span></div>';
