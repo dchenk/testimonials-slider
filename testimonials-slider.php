@@ -18,27 +18,27 @@ function customTestimonialsSlider($atts) {
 	wp_enqueue_script('testimonials', $pluginURL . 'testimonials-slider.js', ['jquery'], TESTIMONIALS_PLUGIN_VER);
 
 	$atts = shortcode_atts([
-		'category' => ''
+		'category' => '',
 	], $atts);
 
 	$posts = wp_get_recent_posts([
-		'numberposts'   => 15,
-		'offset'        => 0,
-		'tax_query' => [
+		'numberposts' => 15,
+		'offset'      => 0,
+		'tax_query'   => [
 			[
 				'taxonomy' => 'testimonial_category',
 				'field'    => 'slug',
-				'terms'    => $atts['category']
-			]
+				'terms'    => $atts['category'],
+			],
 		],
-		'orderby'       => 'post_date',
-		'order'         => 'DESC',
-		'include'       => '',
-		'exclude'       => '',
-		'meta_key'      => '',
-		'meta_value'    => '',
-		'post_type'     => 'testimonial',
-		'post_status'   => 'publish'
+		'orderby'     => 'post_date',
+		'order'       => 'DESC',
+		'include'     => '',
+		'exclude'     => '',
+		'meta_key'    => '',
+		'meta_value'  => '',
+		'post_type'   => 'testimonial',
+		'post_status' => 'publish',
 	]);
 
 	$siteURL = site_url();
@@ -58,3 +58,13 @@ function customTestimonialsSlider($atts) {
 	return $out . '</div></div>';
 }
 add_shortcode('custom_testimonials_slider', 'customTestimonialsSlider');
+
+// Create a shortcode for displaying the previous/next links on testimonial posts.
+function testimonial_nav_links() {
+	return '<div class="testimonial-nav"><span class="nav-next">' .
+	get_next_post_link('%link', 'Next Testimonial <span style="font-family: ETmodules;">&#x3d;</span>', true, [], 'testimonial_category') .
+		'</span><span class="nav-previous">' .
+		get_previous_post_link('%link', '<span style="font-family: ETmodules;">&#x3c;</span> Previous Testimonial', true, [], 'testimonial_category') .
+		'</span></div>';
+}
+add_shortcode('testimonial_nav_links', 'testimonial_nav_links');
