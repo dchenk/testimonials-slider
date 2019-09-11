@@ -59,6 +59,38 @@ function customTestimonialsSlider($atts) {
 }
 add_shortcode('custom_testimonials_slider', 'customTestimonialsSlider');
 
+function customTestimonialsSliderSimple($atts) {
+	$atts = shortcode_atts([], $atts);
+
+	$posts = wp_get_recent_posts([
+		'numberposts' => 60,
+		'offset'      => 0,
+		'orderby'     => 'post_date',
+		'order'       => 'DESC',
+		'include'     => '',
+		'exclude'     => '',
+		'meta_key'    => '',
+		'meta_value'  => '',
+		'post_type'   => 'testimonial',
+		'post_status' => 'publish',
+	]);
+
+	$siteURL = site_url();
+	$out = '<div class="testimonials-slider-simple">';
+	foreach ($posts as $post) {
+		$out .= '<a class="testimonial-simple" href="' . $siteURL . '/testimonial/' . $post['post_name'] . '">';
+		$url = get_the_post_thumbnail_url($post['ID']);
+		if ($url) {
+			$out .= '<img src="' . $url . '" alt="' . $post['post_title'] . '">';
+		} else {
+			$out .= '<div class="testimonial-only-title"><div>' . $post['post_title'] . '</div></div>';
+		}
+		$out .= '</a>';
+	}
+	return $out . '</div>';
+}
+add_shortcode('custom_testimonials_slider_simple', 'customTestimonialsSliderSimple');
+
 // Create a shortcode for displaying the previous/next links on testimonial posts.
 function testimonial_nav_links() {
 	return '<div class="testimonial-nav"><span class="nav-next">' .
